@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickQR Pro - Generador Gratuito</title>
+    <title>QuickQR Pro - Generador Gratuito con Logo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Librería para generar QR -->
@@ -13,13 +13,24 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         
-        /* Animación suave para los inputs */
         .input-transition {
             transition: all 0.3s ease;
         }
         .input-transition:focus {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        /* Clase para evitar saltos de layout */
+        .qr-preview-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 320px; /* Altura fija para evitar vibración */
+        }
+        #qr-canvas {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
         }
     </style>
 </head>
@@ -34,10 +45,15 @@
                     <span class="font-bold text-xl tracking-tight text-gray-900">QuickQR <span class="text-indigo-600">Pro</span></span>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="#" class="text-gray-500 hover:text-indigo-600 font-medium text-sm hidden sm:block">Cómo funciona</a>
-                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
-                        Donar <i class="fa-solid fa-coffee ml-1"></i>
-                    </button>
+                    <a href="#how-it-works" class="text-gray-500 hover:text-indigo-600 font-medium text-sm hidden sm:block scroll-smooth">Cómo funciona</a>
+                    
+                    <!-- BOTÓN DE DONAR ACTUALIZADO -->
+                    <!-- CAMBIA EL href="https://www.paypal.com/" POR TU ENLACE REAL (Ej: BuyMeACoffee) -->
+                    <a href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer" 
+                       class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30 flex items-center">
+                        Donar <i class="fa-solid fa-coffee ml-2"></i>
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -46,7 +62,7 @@
     <!-- MAIN CONTENT -->
     <main class="flex-grow container mx-auto px-4 py-8 max-w-6xl">
         
-        <!-- ESPACIO PUBLICITARIO SUPERIOR (Simulado) -->
+        <!-- ESPACIO PUBLICITARIO SUPERIOR -->
         <div class="w-full h-24 bg-gray-200 border-2 border-dashed border-gray-400 rounded-lg mb-8 flex items-center justify-center text-gray-500">
             <span class="text-sm font-semibold uppercase tracking-wider">Espacio Publicitario (Banner 728x90)</span>
         </div>
@@ -55,12 +71,13 @@
             
             <!-- COLUMNA IZQUIERDA: CONFIGURACIÓN -->
             <div class="lg:col-span-7 space-y-6">
+                
+                <!-- 1. CONTENIDO -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                     <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
                         <span class="bg-indigo-100 text-indigo-600 w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">1</span>
                         Contenido del QR
                     </h2>
-                    
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">URL o Texto</label>
@@ -70,6 +87,7 @@
                     </div>
                 </div>
 
+                <!-- 2. PERSONALIZACIÓN -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                     <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
                         <span class="bg-indigo-100 text-indigo-600 w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">2</span>
@@ -92,21 +110,46 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tamaño (px)</label>
-                            <input type="range" id="size" min="100" max="1000" value="300" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Resolución (px)</label>
+                            <input type="range" id="size" min="200" max="1000" step="50" value="300" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
                             <div class="text-right text-xs text-gray-500 mt-1"><span id="size-val">300</span>px</div>
                         </div>
                          <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Nivel de Error</label>
                             <select id="level" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500">
                                 <option value="L">Bajo (L)</option>
-                                <option value="M" selected>Medio (M)</option>
+                                <option value="M">Medio (M)</option>
                                 <option value="Q">Cuartil (Q)</option>
-                                <option value="H">Alto (H)</option>
+                                <option value="H" selected>Alto (H)</option>
                             </select>
                         </div>
                     </div>
                 </div>
+
+                <!-- 3. LOGO (NUEVO) -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-600 w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">3</span>
+                        Añadir Logo (Opcional)
+                    </h2>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-grow">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Subir imagen (PNG/JPG)</label>
+                            <input type="file" id="logo-input" accept="image/*" 
+                                class="block w-full text-sm text-slate-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-indigo-50 file:text-indigo-700
+                                hover:file:bg-indigo-100 cursor-pointer">
+                            <p class="text-xs text-gray-400 mt-1">Se recomienda usar imágenes cuadradas y sin fondo.</p>
+                        </div>
+                        <button id="remove-logo" class="hidden text-red-500 hover:text-red-700 text-sm font-medium px-3 py-1">
+                            <i class="fa-solid fa-trash"></i> Quitar
+                        </button>
+                    </div>
+                </div>
+
             </div>
 
             <!-- COLUMNA DERECHA: VISTA PREVIA -->
@@ -117,9 +160,9 @@
                         
                         <h3 class="text-lg font-semibold text-gray-700 mb-6">Vista Previa</h3>
                         
-                        <div class="flex justify-center mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100 min-h-[250px] items-center">
+                        <div class="qr-preview-container bg-gray-50 rounded-xl border border-gray-100 mb-6 p-4">
                             <!-- Canvas donde se dibuja el QR -->
-                            <canvas id="qr-canvas" class="shadow-sm max-w-full h-auto"></canvas>
+                            <canvas id="qr-canvas" class="shadow-sm"></canvas>
                         </div>
 
                         <button id="download-btn" class="w-full bg-gray-900 text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition transform hover:-translate-y-1 shadow-lg flex items-center justify-center group">
@@ -129,44 +172,45 @@
                         <p class="text-xs text-gray-400 mt-4">Generado instantáneamente en tu navegador. Privado y seguro.</p>
                     </div>
 
-                    <!-- ESPACIO PUBLICITARIO LATERAL (Simulado) -->
+                    <!-- ESPACIO PUBLICITARIO LATERAL -->
                     <div class="w-full h-64 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-400 p-4 text-center">
                         <i class="fa-solid fa-ad text-3xl mb-2"></i>
                         <span class="text-xs font-semibold uppercase tracking-wider">Anuncio Cuadrado (300x250)</span>
-                        <p class="text-[10px] mt-2">Aquí podrías promocionar hosting, servicios VPN, o herramientas de diseño.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SEO TEXT SECTION (Importante para atraer tráfico orgánico) -->
-        <div class="mt-16 prose max-w-none text-gray-600">
-            <h2 class="text-2xl font-bold text-gray-800">¿Por qué usar QuickQR Pro?</h2>
-            <div class="grid md:grid-cols-3 gap-6 mt-6">
-                <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-indigo-600 mb-2">Totalmente Gratis</h3>
-                    <p class="text-sm">Sin suscripciones ocultas ni límites en la cantidad de códigos que puedes generar.</p>
+        <!-- SEO & INSTRUCCIONES SECTION -->
+        <div id="how-it-works" class="mt-16 pt-10 border-t border-gray-200">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-10">Cómo funciona QuickQR Pro</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold mb-4">1</div>
+                    <h3 class="text-lg font-bold mb-2">Ingresa tu enlace</h3>
+                    <p class="text-gray-600 text-sm">Pega la dirección web (URL), texto o mensaje que quieres compartir. El código se actualizará automáticamente.</p>
                 </div>
-                <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-indigo-600 mb-2">Alta Calidad</h3>
-                    <p class="text-sm">Descarga tus códigos en formato PNG de alta resolución listos para imprimir.</p>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold mb-4">2</div>
+                    <h3 class="text-lg font-bold mb-2">Personalízalo</h3>
+                    <p class="text-gray-600 text-sm">Elige los colores de tu marca y ajusta el tamaño. ¡Ahora también puedes subir tu <strong>logo</strong> para que aparezca en el centro!</p>
                 </div>
-                <div class="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-indigo-600 mb-2">Privacidad Total</h3>
-                    <p class="text-sm">El código se genera en tu navegador. Tus datos nunca se envían a ningún servidor.</p>
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl font-bold mb-4">3</div>
+                    <h3 class="text-lg font-bold mb-2">Descarga y comparte</h3>
+                    <p class="text-gray-600 text-sm">Obtén tu imagen PNG en alta calidad al instante. Perfecta para imprimir en folletos, tarjetas o menús.</p>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-gray-900 text-white mt-12 py-8">
         <div class="container mx-auto px-4 text-center">
-            <p class="mb-4 text-gray-400">© 2024 QuickQR Pro. Todos los derechos reservados.</p>
+            <p class="mb-4 text-gray-400">© 2024 QuickQR Pro. Herramienta gratuita.</p>
             <div class="flex justify-center space-x-6 text-sm text-gray-500">
                 <a href="#" class="hover:text-white">Política de Privacidad</a>
-                <a href="#" class="hover:text-white">Términos de Uso</a>
                 <a href="#" class="hover:text-white">Contacto</a>
             </div>
         </div>
@@ -175,7 +219,7 @@
     <!-- SCRIPT DE FUNCIONALIDAD -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Elementos del DOM
+            // Elementos DOM
             const qrCanvas = document.getElementById('qr-canvas');
             const inputValue = document.getElementById('qr-value');
             const bgColorInput = document.getElementById('background-color');
@@ -183,10 +227,16 @@
             const sizeInput = document.getElementById('size');
             const levelInput = document.getElementById('level');
             const downloadBtn = document.getElementById('download-btn');
+            const logoInput = document.getElementById('logo-input');
+            const removeLogoBtn = document.getElementById('remove-logo');
             
+            // Displays
             const sizeValDisplay = document.getElementById('size-val');
             const bgHexDisplay = document.getElementById('bg-hex');
             const fgHexDisplay = document.getElementById('fg-hex');
+
+            // Estado del logo
+            let uploadedLogo = null; // Almacena la imagen del logo
 
             // Inicializar QRious
             let qr = new QRious({
@@ -198,14 +248,19 @@
                 level: levelInput.value
             });
 
-            // Función para actualizar el QR
+            // Función principal de dibujado (QR + Logo)
             function updateQR() {
-                // Actualizar textos de hex
+                // 1. Actualizar textos UI
                 bgHexDisplay.textContent = bgColorInput.value;
                 fgHexDisplay.textContent = fgColorInput.value;
                 sizeValDisplay.textContent = sizeInput.value;
 
-                // Actualizar instancia de QR
+                // 2. Si hay logo, forzamos nivel Alto (H) de error para que se lea bien
+                if (uploadedLogo) {
+                    levelInput.value = 'H';
+                }
+
+                // 3. Generar el QR base
                 qr.set({
                     value: inputValue.value,
                     size: parseInt(sizeInput.value),
@@ -213,22 +268,65 @@
                     foreground: fgColorInput.value,
                     level: levelInput.value
                 });
+
+                // 4. Si hay logo, dibujarlo encima
+                if (uploadedLogo) {
+                    const ctx = qrCanvas.getContext('2d');
+                    const size = parseInt(sizeInput.value);
+                    
+                    // Calcular tamaño del logo (20% del QR)
+                    const logoSize = size * 0.2; 
+                    const logoPos = (size - logoSize) / 2;
+
+                    // Dibujar fondo blanco detrás del logo para que no se mezcle
+                    // (Opcional, pero ayuda a la legibilidad)
+                    // ctx.fillStyle = bgColorInput.value;
+                    // ctx.fillRect(logoPos, logoPos, logoSize, logoSize);
+
+                    // Dibujar la imagen
+                    ctx.drawImage(uploadedLogo, logoPos, logoPos, logoSize, logoSize);
+                }
             }
 
-            // Listeners para eventos
-            const inputs = [inputValue, bgColorInput, fgColorInput, sizeInput, levelInput];
-            
-            inputs.forEach(input => {
-                input.addEventListener('input', updateQR);
-                input.addEventListener('change', updateQR); // Para color pickers
+            // Manejo de subida de logo
+            logoInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            uploadedLogo = img;
+                            removeLogoBtn.classList.remove('hidden');
+                            updateQR(); // Redibujar con el logo
+                        };
+                        img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
             });
 
-            // Funcionalidad de descarga
+            // Botón quitar logo
+            removeLogoBtn.addEventListener('click', () => {
+                uploadedLogo = null;
+                logoInput.value = ''; // Limpiar input file
+                removeLogoBtn.classList.add('hidden');
+                updateQR();
+            });
+
+            // Listeners generales
+            const inputs = [inputValue, bgColorInput, fgColorInput, sizeInput, levelInput];
+            inputs.forEach(input => {
+                input.addEventListener('input', updateQR);
+                input.addEventListener('change', updateQR);
+            });
+
+            // Descarga
             downloadBtn.addEventListener('click', () => {
                 try {
                     const image = qrCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
                     const link = document.createElement('a');
-                    link.download = 'mi-codigo-qr.png';
+                    link.download = 'qr-con-estilo.png';
                     link.href = image;
                     link.click();
                 } catch (e) {
@@ -236,10 +334,19 @@
                 }
             });
 
-            // Inicialización inicial
+            // Scroll suave para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Primera ejecución
             updateQR();
         });
     </script>
 </body>
-
 </html>
