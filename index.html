@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuickQR Pro - Generador Gratuito con Logo</title>
+    
+    <!-- CÓDIGO DE VERIFICACIÓN DE GOOGLE ADSENSE -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7410071472007579"
+     crossorigin="anonymous"></script>
+    <!-- FIN CÓDIGO ADSENSE -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Librería para generar QR -->
@@ -47,8 +53,7 @@
                 <div class="flex items-center space-x-4">
                     <a href="#how-it-works" class="text-gray-500 hover:text-indigo-600 font-medium text-sm hidden sm:block scroll-smooth">Cómo funciona</a>
                     
-                    <!-- BOTÓN DE DONAR ACTUALIZADO -->
-                    <!-- CAMBIA EL href="https://www.paypal.com/" POR TU ENLACE REAL (Ej: BuyMeACoffee) -->
+                    <!-- BOTÓN DE DONAR -->
                     <a href="https://www.paypal.com/" target="_blank" rel="noopener noreferrer" 
                        class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30 flex items-center">
                         Donar <i class="fa-solid fa-coffee ml-2"></i>
@@ -63,6 +68,7 @@
     <main class="flex-grow container mx-auto px-4 py-8 max-w-6xl">
         
         <!-- ESPACIO PUBLICITARIO SUPERIOR -->
+        <!-- Cuando Google te apruebe, cambiaremos esto por el banner real -->
         <div class="w-full h-24 bg-gray-200 border-2 border-dashed border-gray-400 rounded-lg mb-8 flex items-center justify-center text-gray-500">
             <span class="text-sm font-semibold uppercase tracking-wider">Espacio Publicitario (Banner 728x90)</span>
         </div>
@@ -173,6 +179,7 @@
                     </div>
 
                     <!-- ESPACIO PUBLICITARIO LATERAL -->
+                    <!-- Cuando Google te apruebe, cambiaremos esto por el banner cuadrado -->
                     <div class="w-full h-64 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-400 p-4 text-center">
                         <i class="fa-solid fa-ad text-3xl mb-2"></i>
                         <span class="text-xs font-semibold uppercase tracking-wider">Anuncio Cuadrado (300x250)</span>
@@ -277,11 +284,6 @@
                     // Calcular tamaño del logo (20% del QR)
                     const logoSize = size * 0.2; 
                     const logoPos = (size - logoSize) / 2;
-
-                    // Dibujar fondo blanco detrás del logo para que no se mezcle
-                    // (Opcional, pero ayuda a la legibilidad)
-                    // ctx.fillStyle = bgColorInput.value;
-                    // ctx.fillRect(logoPos, logoPos, logoSize, logoSize);
 
                     // Dibujar la imagen
                     ctx.drawImage(uploadedLogo, logoPos, logoPos, logoSize, logoSize);
